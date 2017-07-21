@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body {
+				font-family:courier;
+				background-color:powderblue;
+			}
+			#text {
+				border:3px dotted black;
+				background:white;
+				padding: 15px;
+				background-clip:padding-box
+			}
+			h1, h2 {
+				font-variant:small-caps;
+				
+			}
+		</style>
+	</head>
+
+	<body>
+		<script type="text/javascript">'use strict';
+			var superHeroes;
+			var requestURL = 'https://raw.githubusercontent.com/womackx/JSONDataRepo/master/example.json';
+			
+			var request = new XMLHttpRequest();
+			request.open('GET', requestURL);
+			
+			request.responseType = 'json'
+			request.send();
+			
+			request.onload = function() {
+				titles();
+				mainText();
+			}
+			
+			function titles() {
+				superHeroes = request.response;
+				var myH2 = document.createElement('h2');
+				myH2.textContent = superHeroes['squadName'];
+				document.getElementsByTagName('h2')[0].appendChild(myH2);
+				var myH3 = document.createElement('h3');
+				myH3.textContent = "Hometown: "+superHeroes['homeTown']+" // Formed: "+superHeroes['formed'];
+				document.getElementsByTagName('h3')[0].appendChild(myH3);
+			}
+			
+			function mainText() {
+				var heroes = superHeroes['members'];
+				
+				
+				for(var i=0; i<heroes.length; i++){
+					document.getElementById('superInfo').innerHTML += "<br>"+heroes[i].name+" || "+heroes[i].age+" years old || Secret Identity: "+heroes[i].secretIdentity+" || Powers:"+"<br>";
+					for(var j=0;j<5;j++){
+						if(typeof heroes[i].powers[j] != 'undefined')
+						document.getElementById('superInfo').innerHTML += "-- "+heroes[i].powers[j]+"<br>";
+					}
+				}
+			}
+			
+			
+		</script>
+		<div id="text">
+			<h1><i><u>Challenge 8</u></i></h1><br>
+			<h2></h2>		
+			<h3/>		<!--Shorthand for <h3></h3>-->
+			<h4 id="superInfo"/>
+		</div>
+	</body>
+</html>
