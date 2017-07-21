@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body {
+				font-family:courier;
+				background-color:powderblue;
+				text-align:center;
+			}
+			#text {
+				width:80%;
+				margin:auto;
+				border:3px dotted black;
+				background:white;
+				padding: 15px;
+				background-clip:padding-box
+			}
+			h1, h2, inputs {
+				font-variant:small-caps;
+				text-align:center;
+
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="text">
+			<h1><i><u>Challenge 10</u></i></h1><br>
+			<h2>Garage Project Pt. 1</h2>
+			
+			<!--Car Entry-->
+			Brand: <input type="text" id="textbox1" placeholder="enter brand..."/><br/>
+			Model: <input type="text" id="textbox2" placeholder="enter model..."/><br/>
+			RegNo: <input type="text" id="textbox3" placeholder="enter registration..."/><br/>
+			Year : <input type="number" id="textbox4" placeholder="enter year..."/><br/><br/>
+			<button onClick="createCar()">Add Car</button><br/><br/>
+			
+			<!--Car Faults-->
+			<input type="text" id="textbox5" placeholder="enter fault..."/><br/><br/>
+			<button onClick="logFault()">Log Fault</button>
+			<button onClick="viewFaults()">View Faults</button>
+			<button onClick="fixCar()">Fix Car</button><br/><br/>
+			
+			<!--Remove All Fixed or All Cars-->
+			<button onClick="removeFixedCars()">Remove Fixed Cars</button>
+			<button onClick="removeAllCars()">Remove All Cars</button><br/><br/>
+			
+			<!--Show Broken or Fixed Cars-->
+			<button onClick="showGarageBroken()">Show Garage (need repairs)</button>
+			<button onClick="showGarageFixed()">Show Garage (fixed)</button>
+			<hr/>
+			
+			<!--Header tag to be replaced-->
+			<h3><b><u>Output:</u></b></h3>
+			<h4 id="output"/>
+		</div>
+		
+		<script>'use strict';
+		
+			var carList = [];
+			var data1, data2, data3, data4;
+			
+			function createCar() {
+				var car = {
+					brand: "N/A",
+					model: "N/A",
+					registration: "N/A",
+					year: "N/A",
+					checkedIn: false,
+					faults: []
+				};
+				
+				if(document.getElementById('textbox1').value!="") car.brand = document.getElementById('textbox1').value;
+				if(document.getElementById('textbox2').value!="") car.model = document.getElementById('textbox2').value;
+				if(document.getElementById('textbox3').value!="") car.registration = document.getElementById('textbox3').value;
+				if(document.getElementById('textbox4').value!="") car.year = document.getElementById('textbox4').value;
+				car.isBroken = true;
+				carList.push(car);
+				document.getElementById("output").innerHTML = "Car "+ carList.length + " added.";
+			}
+			
+			function fixCar() {
+				document.getElementById("output").innerHTML = "";
+				data1 = document.getElementById("textbox1").value;
+				data2 = document.getElementById("textbox2").value;
+				data3 = document.getElementById("textbox3").value;
+				data4 = document.getElementById("textbox4").value;
+
+				
+				for(var i = 0; i<carList.length; i++) {
+					if(data3==carList[i].registration) {
+						carList[i].isBroken = false;
+						carList[i].faults = "";
+						document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+					}
+				}
+				
+			}
+			
+			function showGarageBroken() {
+				document.getElementById("output").innerHTML = "";
+				for(var i = 0; i<carList.length; i++) {
+					if(carList[i].isBroken == true) {
+						document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+					}
+				}
+			}
+			
+			function showGarageFixed() {
+				document.getElementById("output").innerHTML = "";
+				for(var i = 0; i<carList.length; i++) {
+					if(carList[i].isBroken == false) {
+						document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+					}
+				}
+			}
+			
+			function logFault() {
+				document.getElementById("output").innerHTML = "";
+				for(var i=0; i<carList.length; i++) {
+					if(document.getElementById('textbox3').value==carList[i].registration) {
+						carList[i].faults[carList[i].faults.length] = "fault ID " + (carList[i].faults.length + 1) + ": " + document.getElementById("textbox5").value;
+					}
+				}
+				
+				for(i=0;i<carList.length;i++){
+					if(carList[i].registration == document.getElementById("textbox3").value){
+						document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+						for(var j=0; j<carList[i].faults.length; j++) {
+							document.getElementById("output").innerHTML += carList[i].faults[j] + "<br>"; 
+						}
+						if(carList[i].faults.length>0){
+							document.getElementById('output').innerHTML += "Cost of repair: £" + (100 * carList[i].faults.length) + "<br>"; 
+						}
+						
+					}
+				}
+			}
+			
+			function viewFaults() {
+				document.getElementById("output").innerHTML = "";
+				for(var i=0;i<carList.length;i++){
+					if(carList[i].registration == document.getElementById("textbox3").value){
+						document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+						if(carList[i].faults == "") document.getElementById("output").innerHTML += "No faults to display.";
+						else {
+							for(var j=0; j<carList[i].faults.length; j++) {
+								document.getElementById("output").innerHTML += carList[i].faults[j] + "<br>"; 
+							}
+							if(carList[i].faults.length>0){
+								document.getElementById('output').innerHTML += "Cost of repair: £" + (100 * carList[i].faults.length) + "<br>"; 
+							}
+						}
+					}
+				}
+			}
+			
+			function removeFixedCars() {
+				document.getElementById("output").innerHTML = "";
+				for(var i=0; i<carList.length; i++) {
+					if(carList[i].isBroken == false) carList.splice(i,1);
+					else document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+				}
+			}
+			
+			function removeAllCars() {
+				document.getElementById("output").innerHTML = "";
+				carList.splice(0,carList.length);
+				for(var i=0; i<carList.length; i++){
+					document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+				}
+			}
+		</script>
+	</body>
+</html>

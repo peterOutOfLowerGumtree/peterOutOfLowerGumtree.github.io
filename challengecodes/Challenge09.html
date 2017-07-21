@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body {
+				font-family:courier;
+				background-color:powderblue;
+			}
+			#text {
+				border:3px dotted black;
+				background:white;
+				padding: 15px;
+				background-clip:padding-box
+			}
+			h1, h2 {
+				font-variant:small-caps;
+				
+			}
+			
+			#textbox {
+				width:225px;
+			}
+		</style>
+	</head>
+
+	<body>
+		
+		<div id="text">
+			<h1><i><u>Challenge 9</u></i></h1><br>
+			<h2>Kings Project</h2>
+			<input type="text" id="textbox" placeholder="enter attribute...">
+			<button onClick="getTextboxInfo()">Enter</button>
+			<h4 id="output"/>
+		</div>
+		
+		<script>'use strict';
+			var textboxInfo;
+			var kings;
+			
+			
+			var requestURL = 'https://raw.githubusercontent.com/womackx/JSONDataRepo/master/kings.json';
+			var request = new XMLHttpRequest();
+			request.open('GET', requestURL);
+			request.responseType = 'json'
+			request.send();
+			
+			function getTextboxInfo() {
+				document.getElementById("output").innerHTML = "";
+				var data = document.getElementById("textbox").value;
+				kings = request.response;
+				for(var i=0;i<kings.length;i++){
+					if(data === ""){
+						document.getElementById("output").innerHTML +="Search criteria doesnt match the database";
+						break;
+					}
+					
+					else if(kings[i].nm.toLowerCase().includes(data.toLowerCase())) document.getElementById("output").innerHTML += kings[i].nm+"<br>";
+					else if(kings[i].cty.toLowerCase().includes(data.toLowerCase())) document.getElementById("output").innerHTML += kings[i].nm+"<br>";
+					else if(kings[i].hse.toLowerCase().includes(data.toLowerCase())) document.getElementById("output").innerHTML += kings[i].nm+"<br>";
+					else if(kings[i].yrs.toLowerCase().includes(data.toLowerCase())) document.getElementById("output").innerHTML += kings[i].nm+"<br>";
+				}
+			}
+			
+			request.onload = function() {
+				textboxInfo = "";
+				getTextboxInfo();
+			}
+			
+		</script>
+	</body>
+</html>

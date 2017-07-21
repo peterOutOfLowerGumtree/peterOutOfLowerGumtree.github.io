@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			body {
+				font-family:courier;
+				background-color:powderblue;
+				text-align:center;
+			}
+			#text {
+				margin-left:20%;
+				margin-right:20%;
+				border:3px dotted black;
+				background:white;
+				padding: 15px;
+				background-clip:padding-box
+			}
+			h1, h2, inputs {
+				font-variant:small-caps;
+			}
+			li {
+				text-align:left;
+				margin-left:30%;
+				margin-right:30%;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="text">
+			<h1><i><u>Challenge 11</u></i></h1>
+			<h2>Garage Project Pt. 2</h2>
+			
+			<!--Input box & button-->
+			<input type="text"
+				id="textbox"
+				placeholder="enter text..."
+				onkeydown="if(event.keyCode == 13) document.getElementById('btn').click()"
+			/>
+			<br/><br/>
+			<button onClick="readText()" id="btn">Enter</button><br/>
+			
+			<!--Key for various inputs-->
+			<h3><b><u>Input format:</u></b></h3>
+			<ul>
+				<li><b>Input broken car:</b><br/>- "input" brand model RegNo year</li>
+				<li><b>Fix car:</b><br/>- "fix" RegNo</li>
+				<li><b>Remove fixed cars:</b><br/>- "remove fixed"</li>
+				<li><b>Remove all cars</b>:<br/>- "remove all"</li>
+				<li><b>Log fault:</b><br/>- "log" RegNo fault_name[no spaces]</li>
+				<li><b>View a car's faults:</b><br/>- "view faults" RegNo</li>
+				<li><b>Show broken cars:</b><br/>- "show broken"</li>
+				<li><b>Show fixed cars:</b><br/>- "show fixed"</li>
+			</ul>
+			<hr/>
+			
+			<!--Header tag to be replaced-->
+			<h3><b><u>Output:</u></b></h3>
+			<h4 id="output"/>
+		</div>
+		
+		<script>'use strict';
+		
+			var carList = [];
+			var data1, data2, data3, data4;
+			var textString;
+			var textArray;
+			
+			//Read textbox input on btn click
+			function readText() {
+				textString = document.getElementById("textbox").value;
+				textArray = textString.split(" ");
+				if(textArray[0] == "input") createCar();
+				if(textArray[0] == "fix") fixCar();
+				if(textArray[0] == "remove" && textArray[1] == "fixed") removeFixedCars();
+				if(textArray[0] == "remove" && textArray[1] == "all") removeAllCars();
+				if(textArray[0] == "log") logFault();
+				if(textArray[0] == "view" && textArray[1] == "faults") viewFaults();
+				if(textArray[0] == "show" && textArray[1] == "broken") showGarageBroken();
+				if(textArray[0] == "show" && textArray[1] == "fixed") showGarageFixed();
+			}
+			
+			//Create a car, add to array "carList"
+			function createCar() {
+				var car = {
+					brand: "N/A",
+					model: "N/A",
+					registration: "N/A",
+					year: "N/A",
+					checkedIn: false,
+					faults: []
+				};
+				
+				car.brand = textArray[1];
+				car.model = textArray[2];
+				car.registration = textArray[3];
+				car.year = textArray[4];
+				car.isBroken = true;
+				carList.push(car);
+				console.log(carList[0].brand+" "+carList[0].model+" "+carList[0].registration+" "+carList[0].year+" "+carList[0].isBroken);
+				document.getElementById("output").innerHTML = "Car "+ carList.length + " added.";
+			}
+			
+			//Fix car by setting isBroken to false
+			function fixCar() {
+				for(var i = 0; i<carList.length; i++) {
+					if(textArray[1]==carList[i].registration) {
+						carList[i].isBroken = false;
+						carList[i].faults = "";
+						document.getElementById("output").innerHTML = "";
+						document.getElementById("output").innerHTML += "Car fixed:" + carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+					}
+				}
+				
+			}
+			
+			//Show broken cars
+			function showGarageBroken() {
+				document.getElementById("output").innerHTML = "";
+				for(var i = 0; i<carList.length; i++) {
+					if(carList[i].isBroken == true) {
+						document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+					}
+				}
+			}
+			
+			//Show fixed cars
+			function showGarageFixed() {
+				document.getElementById("output").innerHTML = "";
+				for(var i = 0; i<carList.length; i++) {
+					if(carList[i].isBroken == false) {
+						document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+					}
+				}
+			}
+			
+			//Log a fault, display all faults for a car, calculate cost of repair based on number of faults
+			function logFault() {
+				document.getElementById("output").innerHTML = "";
+				for(var i=0; i<carList.length; i++) {
+					if(textArray[1]==carList[i].registration) {
+						carList[i].faults[carList[i].faults.length] = "fault ID " + (carList[i].faults.length + 1) + ": " + textArray[2];
+					}
+				}
+				
+				for(i=0;i<carList.length;i++){
+					if(carList[i].registration == textArray[1]){
+						document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+						for(var j=0; j<carList[i].faults.length; j++) {
+							document.getElementById("output").innerHTML += carList[i].faults[j] + "<br>"; 
+						}
+						if(carList[i].faults.length>0){
+							document.getElementById("output").innerHTML += "Cost of repair: £" + (100 * carList[i].faults.length) + "<br>"; 
+						}
+					}
+				}
+			}
+			
+			//Display all faults for a car, calculate cost of repair based on number of faults and display it
+			function viewFaults() {
+				document.getElementById("output").innerHTML = "";
+				for(var i=0;i<carList.length;i++){
+					if(carList[i].registration == textArray[2]){
+						document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+						if(carList[i].faults == "") document.getElementById("output").innerHTML += "No faults to display.";
+						else {
+							for(var j=0; j<carList[i].faults.length; j++) {
+								document.getElementById("output").innerHTML += carList[i].faults[j] + "<br>"; 
+							}
+							if(carList[i].faults.length>0){
+								document.getElementById("output").innerHTML += "Cost of repair: £" + (100 * carList[i].faults.length) + "<br>"; 
+							}
+						}
+					}
+				}
+			}
+			
+			//Remove fixed cars through iteration
+			function removeFixedCars() {
+				document.getElementById("output").innerHTML = "";
+				for(var i=0; i<carList.length; i++) {
+					if(carList[i].isBroken == false) carList.splice(i,1);
+				}
+				
+				for(i=0; i<carList.length; i++) {
+					document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+				}
+			}
+			
+			//Remove all cars
+			function removeAllCars() {
+				document.getElementById("output").innerHTML = "";
+				carList.splice(0,carList.length);
+				for(var i=0; i<carList.length; i++){
+					document.getElementById("output").innerHTML += carList[i].brand + " " + carList[i].model + " " + carList[i].registration + " " + carList[i].year + "<br>";
+				}
+			}
+		</script>
+	</body>
+</html>
