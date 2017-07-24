@@ -29,6 +29,8 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <script type="text/javascript" src="challengecodes/rock_paper_scissors.js"></script>
+
 </head>
 
 <body>
@@ -95,10 +97,41 @@
                         <img class="img-responsive" src="img/rps_output.png" alt="Rock Paper Scissors Output" style="display:block;margin:auto;border:3px solid black;"/>
                     </a>
                     <span class="caption text-muted">Example Rock Paper Scissors output after 30 turns</span>
+
+                    <hr/>
+
+                    <h3>Live Demo:</h3>
+                    
+                    <select id="playerOption">
+                        <option value="Rock">Rock</option>
+                        <option value="Paper">Paper</option>
+                        <option value="Scissors">Scissors</option>
+                        <option value="Lizard">Lizard</option>
+                        <option value="Spock">Spock</option>
+                    </select>
+                    <button id="playButton" onClick="calculateWinner()">Calculate Winner!</button>
+                    <button id="resetStats" onClick="reset()">Reset</button>
+                    <br/>
+                    <p><b><u>Result:</u></b></p>
+                    <div id="mainTextBorder">
+                        <div id="mainText">
+                            <p><div id="txt">Not played yet. No one wins!</div></p>
+                            <p><div id="numberOfComputerWins">Computer has won 0 times (0.00% win rate)</div></p>
+                            <p><div id="numberOfPlayerWins">Player has won 0 times (0.00% win rate)</div></p>
+                            <p><div id="numberOfDraws">Player has drawn 0 times (0.00% draw rate)</div></p>
+                            <p><div id="numberOfClicks">You have played 0/30 times</div></p>
+                            <br/>
+                            <p><div id="numberOfRocks">0 Rocks have been played (0.00% rock rate)</div></p>
+                            <p><div id="numberOfPapers">0 Papers have been played (0.00% paper rate)</div></p>
+                            <p><div id="numberOfScissors">0 Scissors have been played (0.00% scissor rate)</div></p>
+                            <p><div id="numberOfLizards">0 Lizards have been played (0.00% lizard rate)</div></p>
+                            <p><div id="numberOfSpocks">0 Spocks have been played (0.00% Spock rate)</div></p>
+                        </div>
+                    </div>
+
+                    <hr/>
 					
-					<p><a href="challengecodes/rock_paper_scissors.html" target="_blank">Click here to view the Rock Paper Scissors task live.</a></p>
-					
-					<p><a href="https://github.com/peterOutOfLowerGumtree/QA-JavaScript/blob/master/rock_paper_scissors.html" target="_blank">Click here to view the source code on GitHub.</a></p>
+					<p><a href="https://github.com/peterOutOfLowerGumtree/peterOutOfLowerGumtree.github.io/blob/master/challengecodes/rock_paper_scissors.js" target="_blank">Click here to view the source code on GitHub.</a></p>
                 </div>
             </div>
         </div>
