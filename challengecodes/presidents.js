@@ -62,7 +62,10 @@ function checkAlive(date) {
 function whoIsAlive() {
 	document.getElementById("superInfo").innerHTML = "";
 	checkAlive(document.getElementById("textbox").value);
-	if (document.getElementById("superInfo").innerHTML === "") {
+	if (document.getElementById("superInfo").innerHTML === "" && document.getElementById("textbox").value !== "") {
 		document.getElementById("superInfo").innerHTML = "No presidents alive in year: " + document.getElementById("textbox").value
+	}
+	if (document.getElementById("textbox").value === "") {
+		document.getElementById("superInfo").innerHTML = "No year entered"
 	}
 }
