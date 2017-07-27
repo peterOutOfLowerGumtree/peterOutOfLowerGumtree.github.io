@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var presidents = `George Washington, Feb 22 1732, Westmoreland Co. Va., Dec 14 1799, Mount Vernon Va.
 			John Adams, Oct 30 1735, Quincy Mass., Jul 04 1826, Quincy Mass.
@@ -44,16 +44,16 @@ var presidents = `George Washington, Feb 22 1732, Westmoreland Co. Va., Dec 14 1
 			George W. Bush, Jul 06 1946, New Haven Conn., , ,
 			Barack Obama, Aug 04 1961, Honolulu Hawaii, , `;
 
-var lines = presidents.split('\n');
+var lines = presidents.split("\n");
 
 var presidentsArray = [];
 for (var i = 0; i < lines.length; i++) {
-	presidentsArray[i] = lines[i].split(',');
+	presidentsArray[i] = lines[i].split(",");
 }
 
 function checkAlive(date) {
 	for (var i = 0; i < presidentsArray.length; i++) {
-		if ((date <= parseInt(presidentsArray[i][3].substring(7, 12)) && date > parseInt(presidentsArray[i][1].substring(7, 12))) || (presidentsArray[i][3] == " " && date > parseInt(presidentsArray[i][1].substring(7, 12)))) {
+		if ((date <= parseInt(presidentsArray[i][3].substring(7, 12)) && date > parseInt(presidentsArray[i][1].substring(7, 12))) || (presidentsArray[i][3] === " " && date > parseInt(presidentsArray[i][1].substring(7, 12)))) {
 			document.getElementById("superInfo").innerHTML += presidentsArray[i][0] + "<br>";
 		}
 	}
@@ -63,9 +63,9 @@ function whoIsAlive() {
 	document.getElementById("superInfo").innerHTML = "";
 	checkAlive(document.getElementById("textbox").value);
 	if (document.getElementById("superInfo").innerHTML === "" && document.getElementById("textbox").value !== "") {
-		document.getElementById("superInfo").innerHTML = "No presidents alive in year: " + document.getElementById("textbox").value
+		document.getElementById("superInfo").innerHTML = "No presidents alive in year: " + document.getElementById("textbox").value;
 	}
 	if (document.getElementById("textbox").value === "") {
-		document.getElementById("superInfo").innerHTML = "No year entered"
+		document.getElementById("superInfo").innerHTML = "No year entered";
 	}
 }
