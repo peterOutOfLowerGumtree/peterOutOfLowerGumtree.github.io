@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 var typeOrder = {
 	normal: 0,
@@ -42,25 +42,24 @@ var typeChart = {
 	fairy: [1, 0.5, 1, 1, 1, 1, 2, 0.5, 1, 1, 1, 1, 1, 1, 2, 2, 0.5, 1]
 };
 
-function calculate_effectiveness() {
+function calculateEffectiveness() {
 	var attackString = document.getElementById("attacking_type").value;
-	console.log(attackString);
 	var defenceString = document.getElementById("defending_type").value;
 	var defenceString2 = document.getElementById("defending_type2").value;
 	var row = typeChart[attackString];
+	var column = typeOrder[defenceString];
 	if (defenceString2 === "") {
-		var column = typeOrder[defenceString];
 		console.log(attackString + " is " + row[column] + "x effective against " + defenceString);
-		window.alert(attackString + " is " + row[column] + "x effective against " + defenceString);
+		document.getElementById("output").innerHTML = attackString + " is " + row[column] + "x effective against " + defenceString
 	} else {
 		column = typeOrder[defenceString2];
 		console.log(attackString + " is " + row[column] + "x effective against " + defenceString2);
-		window.alert(attackString + " is " + row[column] + "x effective against " + defenceString2);
+		document.getElementById("output").innerHTML = attackString + " is " + row[column] + "x effective against " + defenceString2;
 	}
 
 }
 
-function calculate_dual_effectiveness() {
+function calculateDualEffectiveness() {
 	var attackString = document.getElementById("attacking_type").value;
 	var defenceString = document.getElementById("defending_type").value;
 	var defenceString2 = document.getElementById("defending_type2").value;
@@ -69,13 +68,13 @@ function calculate_dual_effectiveness() {
 	var column2 = typeOrder[defenceString2];
 	if (defenceString === defenceString2) {
 		console.log(attackString + " is " + row[column] + "x effective against " + defenceString);
-		window.alert(attackString + " is " + row[column] + "x effective against " + defenceString);
+		document.getElementById("output").innerHTML = attackString + " is " + row[column] + "x effective against " + defenceString;
 	} else {
 		console.log(attackString + " is " + (row[column] * row[column2]) + "x effective against dual-type " + defenceString +
 			" & " + defenceString2);
-		window.alert(attackString + " is " + (row[column] * row[column2]) + "x effective against dual-type " +
+		document.getElementById("output").innerHTML = attackString + " is " + (row[column] * row[column2]) + "x effective against dual-type " +
 			defenceString +
-			" & " + defenceString2);
+			" & " + defenceString2;
 	}
 }
 
@@ -84,14 +83,14 @@ function isDualType() {
 	var defenceString = document.getElementById("defending_type").value;
 	var defenceString2 = document.getElementById("defending_type2").value;
 	if (defenceString === "" && defenceString2 === "") {
-		console.log("Enter a defence value")
-		window.alert("Enter a defence value")
+		console.log("Enter a defence value");
+		document.getElementById("output").innerHTML = "Enter a defence value";
 	} else if (attackString === "") {
-		console.log("Enter an attack value")
-		window.alert("Enter an attack value")
+		console.log("Enter an attack value");
+		document.getElementById("output").innerHTML = "Enter an attack value";
 	} else if (defenceString === "" || defenceString2 === "") {
-		calculate_effectiveness();
+		calculateEffectiveness();
 	} else {
-		calculate_dual_effectiveness();
+		calculateDualEffectiveness();
 	}
 }

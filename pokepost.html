@@ -118,16 +118,22 @@
 
 
                     <h3>Live demo:</h3><br/>
-                    <input type="text" id="attacking_type" placeholder="attacking type..." alt="Enter Attacking Type" required="required" />
-                    <br/>
-                    <input type="text" id="defending_type" placeholder="defending type..." alt="Enter Defending Type" required="required" />
-                    <br/>
-                    <input type="text" id="defending_type2" placeholder="defending type 2..." alt="Enter Defending Type" required="required"
-                    />
-                    <br/>
-                    <br/>
-                    <button onClick="isDualType()">Calculate effectiveness</button>
-
+                    <div style="text-align: center;">
+                        <div style="display: inline-table; margin: 0 auto; width: 40%;">
+                            <input type="text" id="attacking_type" placeholder="attacking type..." alt="Enter Attacking Type" required="required" />
+                            <br/>
+                            <input type="text" id="defending_type" placeholder="defending type..." alt="Enter Defending Type" required="required" />
+                            <br/>
+                            <input type="text" id="defending_type2" placeholder="defending type 2..." alt="Enter Defending Type" required="required"
+                            />
+                            <br/>
+                            <br/>
+                            <button onClick="isDualType()">Calculate effectiveness</button>
+                        </div>
+                        <div style="display: inline-table; margin: 0 auto; width: 40%; text-align: left">
+                            <p id="output">Output</p>
+                        </div>
+                    </div>
                     <hr/>
 
                     <p><a href="https://github.com/peterOutOfLowerGumtree/peterOutOfLowerGumtree.github.io/blob/master/challengecodes/pokemon_type_matchup.js"
