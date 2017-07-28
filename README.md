@@ -1,4 +1,4 @@
-# Bootstrap Website hosting wk 3 JavaScript projects #
+# Bootstrap Website hosting wk 3 JavaScript projects  #
 
 A Bootstrap website hosted on [jameswhiteley.tk](http://jameswhiteley.tk/) which was originally made as a project in my third week (HTML/CSS/JavaScript) of training with QA Consulting. The corresponding GitHub repository for these projects can be found [here](https://github.com/peterOutOfLowerGumtree/QA-JavaScript).
 
