@@ -49,11 +49,9 @@ function calculateEffectiveness() {
 	var row = typeChart[attackString];
 	var column = typeOrder[defenceString];
 	if (defenceString2 === "") {
-		console.log(attackString + " is " + row[column] + "x effective against " + defenceString);
-		document.getElementById("output").innerHTML = attackString + " is " + row[column] + "x effective against " + defenceString
+		document.getElementById("output").innerHTML = attackString + " is " + row[column] + "x effective against " + defenceString;
 	} else {
 		column = typeOrder[defenceString2];
-		console.log(attackString + " is " + row[column] + "x effective against " + defenceString2);
 		document.getElementById("output").innerHTML = attackString + " is " + row[column] + "x effective against " + defenceString2;
 	}
 
@@ -67,11 +65,8 @@ function calculateDualEffectiveness() {
 	var column = typeOrder[defenceString];
 	var column2 = typeOrder[defenceString2];
 	if (defenceString === defenceString2) {
-		console.log(attackString + " is " + row[column] + "x effective against " + defenceString);
 		document.getElementById("output").innerHTML = attackString + " is " + row[column] + "x effective against " + defenceString;
 	} else {
-		console.log(attackString + " is " + (row[column] * row[column2]) + "x effective against dual-type " + defenceString +
-			" & " + defenceString2);
 		document.getElementById("output").innerHTML = attackString + " is " + (row[column] * row[column2]) + "x effective against dual-type " +
 			defenceString +
 			" & " + defenceString2;
@@ -83,10 +78,8 @@ function isDualType() {
 	var defenceString = document.getElementById("defending_type").value;
 	var defenceString2 = document.getElementById("defending_type2").value;
 	if (defenceString === "" && defenceString2 === "") {
-		console.log("Enter a defence value");
 		document.getElementById("output").innerHTML = "Enter a defence value";
 	} else if (attackString === "") {
-		console.log("Enter an attack value");
 		document.getElementById("output").innerHTML = "Enter an attack value";
 	} else if (defenceString === "" || defenceString2 === "") {
 		calculateEffectiveness();
